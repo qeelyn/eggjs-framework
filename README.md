@@ -17,6 +17,9 @@ npm i egg-qeelyn-framework --S
 }
 ```
 
+#### VS CODE
+使用 vs code 开发 建议安装插件[eggjs](https://marketplace.visualstudio.com/items?itemName=atian25.eggjs)
+
 ## 已启动的功能
 
 1. 默认配置了json日志输出
@@ -29,7 +32,7 @@ npm i egg-qeelyn-framework --S
 ## controllser
 
 #### 介绍
-框架controllser是和vue-qeelyn-components的前端vue模块配合调用的api接口层，主要用处理公共头部的接口、spm的创建接口、用户注销的logout接口
+框架controllser是前端模块配合调用的api接口层，主要用处理公共头部的接口、spm的创建接口、用户注销的logout接口,当然也可以自行实现
 
 #### 使用方式
 路由配置即可使用。   （copy过去就可以了）
