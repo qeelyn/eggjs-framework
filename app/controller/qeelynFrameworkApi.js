@@ -27,6 +27,7 @@ class QeelynFrameworkApiController extends Controller {
             userId: ctx.session.userId,
             refreshToken: ctx.session.refreshToken,
             orgId: ctx.session.orgId,
+            loginOrgId: ctx.session.loginOrgId,
         }, ctx.request.body.host);
         ctx.body = { 'data': body };
     }
@@ -47,6 +48,7 @@ class QeelynFrameworkApiController extends Controller {
         await this.service.qeelynAuthClient.logout(config.loginFrom);
         ctx.session.uid = null;
         ctx.session.orgId = null;
+        ctx.session.loginOrgId = null;
         ctx.session.refreshToken = null;
         ctx.redirect('/');
     }

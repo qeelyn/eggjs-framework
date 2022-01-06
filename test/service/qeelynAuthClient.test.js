@@ -16,7 +16,7 @@ describe('test/service/qeelynAuthClient.test.js', () => {
 
     afterEach(mock.restore);
 
-    it('should login', async() => {
+    it('should login', async () => {
         const ctx = app.mockContext({
             headers: {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36'
@@ -26,6 +26,13 @@ describe('test/service/qeelynAuthClient.test.js', () => {
         console.log(result);
     });
 
+
+    // it('should orgList', async () => {
+    //     const ctx = app.mockContext();
+    //     ctx.session.uid = '';
+    //     const result = await ctx.service.qeelynAuthClient.orgList();
+    //     console.log(result);
+    // });
 
     // it('should getTicket', async () => {
     //   const ctx = app.mockContext();

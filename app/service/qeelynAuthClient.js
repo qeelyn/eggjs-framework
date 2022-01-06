@@ -29,9 +29,7 @@ class QeelynAuthClientService extends Service {
             from,
             app_code,
             wechatCode
-        }, 'POST', {
-            'Client-IP': ctx.xip //ip处理
-        });
+        }, 'POST');
     }
 
     /**
@@ -54,9 +52,16 @@ class QeelynAuthClientService extends Service {
             app_code,
             from,
             rdwc_code
-        }, 'POST', {
-            'Client-IP': ctx.xip //ip处理
-        });
+        }, 'POST');
+    }
+
+    /**
+     * 登录用户的组织列表
+     * @return {Object} api结果
+     */
+    async orgList() {
+        const { app, ctx } = this;
+        return await this.curCurl(app.config.api.ucenterAuth + '/can/login/orgs', {}, 'POST');
     }
 
     /**
@@ -66,13 +71,9 @@ class QeelynAuthClientService extends Service {
      */
     async logout(from = 'web') {
         const { app, ctx } = this;
-        let ticket = ctx.session.uid ? ctx.session.uid : '';
-        ticket = ticket ? ('Bearer ' + ticket) : null;
         return await this.curCurl(app.config.api.ucenterAuth + '/logout', {
             from,
-        }, 'POST', {
-            'Authorization': ticket
-        });
+        }, 'POST');
     }
 
     /**
@@ -82,29 +83,25 @@ class QeelynAuthClientService extends Service {
      */
     async refreshToken(refresh_token = '', from = 'web') {
         const { app, ctx } = this;
-        let ticket = ctx.session.uid ? ctx.session.uid : '';
-        ticket = ticket ? ('Bearer ' + ticket) : null;
         return await this.curCurl(app.config.api.ucenterAuth + '/refresh_token', {
             refresh_token,
             from,
-        }, 'POST', {
-            'Authorization': ticket
-        });
+        }, 'POST');
     }
 
-    /**  未启用
+    /** 
      * 验证url路由授权
      * @param {String} url url地址
      * @return {Promise.<*|null>} 结果
      */
     async canAccessUrl(router = '') {
-        const { app, ctx } = this, orgId = ctx.session.orgId;
+        const { app, ctx } = this;
         return await ctx.service.apiHttpClient.httpApi(app.config.api.ucenterAuth + '/access/can', {
             permission: router,
-            orgId: orgId,
+            orgId: ctx.session.orgId,
+            loginOrgId: ctx.session.loginOrgId,
             appCode: ctx.app.config.appCode
         }, 'POST');
-
     }
 
     /**
@@ -125,11 +122,13 @@ class QeelynAuthClientService extends Service {
                 contentType: 'json',
                 data,
                 headers: Object.assign({
+                    'Authorization': ctx.session.uid ? `Bearer ${ctx.session.uid}` : undefined,
                     'Qeelyn-Tracing-Id': ctx[REQID],
                     'Content-Type': 'application/x-www-form-urlencoded',
                     'Referer': ctx.header.referer,
                     'User-Agent': ctx.header['user-agent'],
-                    "X-Forwarded-For": ctx.xip
+                    "X-Forwarded-For": ctx.xip,
+                    'Client-IP': ctx.xip
                 }, headers),
                 dataType: 'json',
             });

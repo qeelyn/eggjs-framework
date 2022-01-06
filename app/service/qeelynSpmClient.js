@@ -9,7 +9,7 @@ class QeelynSpmClientService extends Service {
 
     /**
      * 创建spm
-     * @param {Object} data 一般记入uid和orgid
+     * @param {Object} data 一般记入必须数据
      * @param {String} host host地址
      * @return {String} spm 的字符串
      */

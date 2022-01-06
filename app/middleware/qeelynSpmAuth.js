@@ -19,6 +19,7 @@ module.exports = isGoLoginPage => {
                 ctx.session.uid = data.uid;
                 ctx.session.userId = data.userId;
                 ctx.session.orgId = data.orgId;
+                ctx.session.loginOrgId = data.loginOrgId;
                 ctx.session.refreshToken = data.refreshToken;
                 isTrueLogin = true;
             }
@@ -27,7 +28,6 @@ module.exports = isGoLoginPage => {
         }
 
         if (ctx.session.uid && ctx.session.orgId) {
-            // 如果 uid 和orgId 存在
             isTrueLogin = true;
         }
         // 处理登录地址选哪里问题
@@ -43,6 +43,7 @@ module.exports = isGoLoginPage => {
         } else {
             if (ctx.query.token_oid) {
                 ctx.session.orgId = ctx.query.token_oid;
+                ctx.session.loginOrgId = ctx.query.token_login_oid;
             }
             await next();
         }

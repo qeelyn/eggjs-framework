@@ -15,7 +15,8 @@ module.exports = () => {
             }
         }
         const uid = ctx.session.uid;
-        ctx.session.orgId = ctx.headers['qeelyn-org-id'];
+        ctx.session.orgId = ctx.headers['org-id'];
+        ctx.session.loginOrgId = ctx.headers['login-org-id'];
 
         try {
             // JWT验证
