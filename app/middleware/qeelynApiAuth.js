@@ -14,14 +14,14 @@ module.exports = () => {
                 ctx.session.uid = authAry[1];
             }
         }
-        const uid = ctx.session.uid;
+
         ctx.session.orgId = ctx.headers['org-id'];
         ctx.session.loginOrgId = ctx.headers['login-org-id'];
 
         try {
             // JWT验证
             const pemPath = ctx.app.config.publicKeyPath;
-            const decoded = jwt.verify(uid, fs.readFileSync(pemPath));
+            const decoded = jwt.verify(ctx.session.uid, fs.readFileSync(pemPath));
             ctx.session.userId = decoded.sub;
             await next();
             //更新csrf

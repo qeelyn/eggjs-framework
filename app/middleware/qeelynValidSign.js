@@ -20,8 +20,11 @@ module.exports = () => {
             if (ctx.headers["authorization"]) {
                 signAry.push(`authorization=${ctx.headers["authorization"]}`);
             }
-            if (ctx.headers["qeelyn-org-id"]) {
-                signAry.push(`qeelyn-org-id=${ctx.headers["qeelyn-org-id"]}`);
+            if (ctx.headers["org-id"]) {
+                signAry.push(`org-id=${ctx.headers["org-id"]}`);
+            }
+            if (ctx.headers["login-org-id"]) {
+                signAry.push(`login-org-id=${ctx.headers["login-org-id"]}`);
             }
             if (ctx.headers["nonce"]) {
                 signAry.push(`nonce=${ctx.headers["nonce"]}`);
