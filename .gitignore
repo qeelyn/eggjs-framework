@@ -11,3 +11,4 @@ package-lock.json
 *-lock.js
 *.pem
 test/**/config/
+.github

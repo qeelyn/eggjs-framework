@@ -59,9 +59,11 @@ class QeelynAuthClientService extends Service {
      * 登录用户的组织列表
      * @return {Object} api结果
      */
-    async orgList() {
+    async orgList(from = 'web') {
         const { app, ctx } = this;
-        return await this.curCurl(app.config.api.ucenterAuth + '/can/login/orgs', {}, 'POST');
+        return await this.curCurl(app.config.api.ucenterAuth + '/can/login/orgs', {
+            from
+        }, 'POST');
     }
 
     /**
@@ -116,20 +118,23 @@ class QeelynAuthClientService extends Service {
         const { app, ctx } = this;
         ctx[REQID] = ctx[REQID] || ctx.reqId;
 
+        headers = {
+            'Authorization': ctx.session.uid ? `Bearer ${ctx.session.uid}` : undefined,
+            'Qeelyn-Tracing-Id': ctx[REQID],
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Referer': ctx.header.referer,
+            'User-Agent': ctx.header['user-agent'],
+            "X-Forwarded-For": ctx.xip,
+            'Client-IP': ctx.xip,
+            ...headers
+        }
+
         try {
             const result = await app.curl(url, {
                 method,
                 contentType: 'json',
                 data,
-                headers: Object.assign({
-                    'Authorization': ctx.session.uid ? `Bearer ${ctx.session.uid}` : undefined,
-                    'Qeelyn-Tracing-Id': ctx[REQID],
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                    'Referer': ctx.header.referer,
-                    'User-Agent': ctx.header['user-agent'],
-                    "X-Forwarded-For": ctx.xip,
-                    'Client-IP': ctx.xip
-                }, headers),
+                headers,
                 dataType: 'json',
             });
 
