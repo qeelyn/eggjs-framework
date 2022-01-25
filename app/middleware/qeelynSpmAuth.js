@@ -39,7 +39,15 @@ module.exports = isGoLoginPage => {
         }
 
         if (isGoLoginPage && !isTrueLogin) {
-            ctx.unsafeRedirect(`${loginUrl}?callback=${ctx.request.href}`);
+            let params = [];
+            if (ctx.session.orgId) {
+                params.push(`token_oid=${ctx.session.orgId}`)
+            }
+            if (ctx.session.loginOrgId) {
+                params.push(`token_login_oid=${ctx.session.loginOrgId}`)
+            }
+            params.push(`callback=${ctx.request.href}`)
+            ctx.unsafeRedirect(`${loginUrl}?${params.join('&')}`);
         } else {
             if (ctx.query.token_oid) {
                 ctx.session.orgId = ctx.query.token_oid;

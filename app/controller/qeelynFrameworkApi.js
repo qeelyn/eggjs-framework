@@ -47,8 +47,6 @@ class QeelynFrameworkApiController extends Controller {
         const { ctx, config } = this;
         await this.service.qeelynAuthClient.logout(config.loginFrom);
         ctx.session.uid = null;
-        ctx.session.orgId = null;
-        ctx.session.loginOrgId = null;
         ctx.session.refreshToken = null;
         ctx.redirect('/');
     }
