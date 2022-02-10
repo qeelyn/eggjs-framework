@@ -49,12 +49,6 @@ module.exports = isGoLoginPage => {
             params.push(`callback=${ctx.request.href}`)
             ctx.unsafeRedirect(`${loginUrl}?${params.join('&')}`);
         } else {
-            if (ctx.query.token_oid) {
-                ctx.session.orgId = ctx.query.token_oid;
-            }
-            if (ctx.query.token_login_oid) {
-                ctx.session.loginOrgId = ctx.query.token_login_oid;
-            }
             await next();
         }
 

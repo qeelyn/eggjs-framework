@@ -41,6 +41,18 @@ class QeelynFrameworkApiController extends Controller {
     }
 
     /**
+     * 更新orgId
+     */
+    async seOid() {
+        const { ctx, } = this;
+        if (ctx.request.body.oid && ctx.request.body.login_oid) {
+            ctx.session.orgId = ctx.request.body.oid;
+            ctx.session.loginOrgId = ctx.request.body.login_oid;
+            ctx.body = { data: true };
+        }
+    }
+
+    /**
      * 注销
      */
     async logout() {
@@ -58,7 +70,7 @@ class QeelynFrameworkApiController extends Controller {
         const { ctx } = this;
         ctx.response.status = 200
         ctx.logger.info(jsonLoggerUtile.commonJson(ctx, 'feLog'));
-        ctx.body = { 'data': true };
+        ctx.body = { data: true };
     }
 
 }
