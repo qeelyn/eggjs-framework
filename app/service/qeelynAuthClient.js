@@ -144,8 +144,10 @@ class QeelynAuthClientService extends Service {
                 ctx.response.status = result.status;
                 ctx.logger.error(jsonLoggerUtile.commonJson(ctx, "error", { errorMsg: result.data, ctxHeader: ctx.header }));
             }
+            ctx.response.append('Qeelyn-Tracing-Id', ctx[REQID])
             return result.data;
         } catch (e) {
+            ctx.response.append('Qeelyn-Tracing-Id', ctx[REQID])
             ctx.response.status = 500;
             ctx.logger.error(jsonLoggerUtile.commonJson(ctx, "error", { errorMsg: e, ctxHeader: ctx.header }));
             return ctx.helper.errorOut('接口访问异常！');

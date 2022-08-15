@@ -1,7 +1,7 @@
 'use strict';
 
 const mock = require('egg-mock');
-const uuidv4 = require('uuid/v4');
+// const uuidv4 = require('uuid/v4');
 
 describe('test/controller/qeelynFrameworkApi.test.js', () => {
     let app;
@@ -20,49 +20,48 @@ describe('test/controller/qeelynFrameworkApi.test.js', () => {
         orgId = 1000;
 
 
-    it('should get page', async() => {
-        app.mockSession({
-            orgId,
-            uid,
-        });
-        app.mockCsrf();
-        const result = await app.httpRequest()
-            .get('/?from_app_code=deo.backend1')
-            // .get('/?spm=ZGVvLmJhY2tlbmQtYTYwNzFjOTljNTI0ZWI2OTM3OTJkMzQxZTJlNWY4ZDgtMTYxNDY3MjM1NTE2OA%3D%3D')
-            .set('Accept', 'application/json, text/plain, */*')
-            .set('Content-Type', 'application/json;charset=UTF-8')
-            .send({
-                host: 'http://192.168.0.20:12345',
-            })
-            .expect(302);
-        console.log(result.text);
-    });
-
-    // it('should post usercenterApi', async() => {
-    //     // console.log('uuidv4', uuidv4());
+    // it('should get page', async() => {
     //     app.mockSession({
     //         orgId,
     //         uid,
     //     });
     //     app.mockCsrf();
     //     const result = await app.httpRequest()
-    //         .post('/qeelyn-framework/usercenter-api')
+    //         .get('/?from_app_code=deo.backend1')
+    //         // .get('/?spm=ZGVvLmJhY2tlbmQtYTYwNzFjOTljNTI0ZWI2OTM3OTJkMzQxZTJlNWY4ZDgtMTYxNDY3MjM1NTE2OA%3D%3D')
     //         .set('Accept', 'application/json, text/plain, */*')
     //         .set('Content-Type', 'application/json;charset=UTF-8')
-    //         .set('authorization', `Bearer ${uid}`)
-    //         .set('X-Request-ID', `request-id`)
-    //         .set('qeelyn-org-id', orgId)
     //         .send({
-    //             query: `query{
-    //                         viewer{
-    //                             id,nickname
-    //                         }
-    //                     }`,
-    //             variables: null,
+    //             host: 'http://192.168.0.20:12345',
     //         })
-    //         .expect(200);
-    //     console.log('result:', result.body);
+    //         .expect(302);
+    //     console.log(result.text);
     // });
+
+    it('should post usercenterApi', async() => {
+        // console.log('uuidv4', uuidv4());
+        app.mockSession({
+            orgId,
+            uid,
+        });
+        app.mockCsrf();
+        const result = await app.httpRequest()
+            .post('/qeelyn-framework/usercenter-api')
+            .set('Accept', 'application/json, text/plain, */*')
+            .set('Content-Type', 'application/json;charset=UTF-8')
+            .set('authorization', `Bearer ${uid}`)
+            .set('X-Request-ID', `request-id`)
+            .set('qeelyn-org-id', orgId)
+            .send({
+                query: `query{
+                            viewer{
+                                id,nickname
+                            }
+                        }`,
+                variables: null,
+            });
+        console.log('result:', result.body);
+    });
 
     // it('should post spm', async() => {
     //     app.mockSession({

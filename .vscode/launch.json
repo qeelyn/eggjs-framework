@@ -29,7 +29,7 @@
             "runtimeArgs": [
                 "run",
                 "test-local",
-                "test/service/qeelynAuthClient.test.js",
+                "test/controller/qeelynFrameworkApi.test.js",
                 "--",
                 "--inspect-brk"
             ],
