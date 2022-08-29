@@ -63,10 +63,14 @@ class ApiHttpClientService extends Service {
                 }
                 ctx.logger.error(jsonLoggerUtile.commonJson(ctx, "error", { errorMsg, ctxHeader: ctx.header }));
             }
-            ctx.response.append('Qeelyn-Tracing-Id',ctx[REQID])
+            if (!ctx.response.headers['Qeelyn-Tracing-Id']) {
+                ctx.response.append('Qeelyn-Tracing-Id', ctx[REQID])
+            }
             return result.data;
         } catch (e) {
-            ctx.response.append('Qeelyn-Tracing-Id',ctx[REQID])
+            if (!ctx.response.headers['Qeelyn-Tracing-Id']) {
+                ctx.response.append('Qeelyn-Tracing-Id', ctx[REQID])
+            }
             ctx.response.status = 500;
             ctx.logger.error(jsonLoggerUtile.commonJson(ctx, "error", { errorMsg: e, ctxHeader: ctx.header }));
             return ctx.helper.errorOut('接口访问异常！');
