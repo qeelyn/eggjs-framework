@@ -18,7 +18,7 @@ module.exports = {
     },
     //获取真实IP
     get xip() {
-        if (this.header?.['x-forwarded-for']) {
+        if (this.header && this.header['x-forwarded-for']) {
             return this.header['x-forwarded-for'];
         } else {
             return this.ip;
@@ -26,7 +26,7 @@ module.exports = {
     },
     //统一生成reqId  后续有变化在去调整
     get reqId() {
-        if (this.header?.['x-request-id']) {
+        if (this.header && this.header['x-request-id']) {
             return this.header['x-request-id'];
         } else {
             return Math.floor(Date.now() + '' + Math.floor(Math.random() * 1000000)).toString(16);
