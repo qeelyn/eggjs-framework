@@ -24,13 +24,13 @@ module.exports = {
             return this.ip;
         }
     },
-    //统一生成reqId  后续有变化在去调整
+    //统一生成reqId
     get reqId() {
-        if (this.header && this.header['x-request-id']) {
-            return this.header['x-request-id'];
-        } else {
-            return Math.floor(Date.now() + '' + Math.floor(Math.random() * 1000000)).toString(16);
-        }
-
+        // 由于nginx 生成的req_id 是32位  超过java long类型导致无法根据这个操作进行传递
+        // if (this.header && this.header['x-request-id']) {
+        //     return this.header['x-request-id'];
+        // } else {
+        // }
+        return Math.floor(Date.now() + '' + Math.floor(Math.random() * 1000000)).toString(16);
     }
 };

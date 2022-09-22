@@ -1,6 +1,6 @@
 {
     "name": "egg-qeelyn-framework",
-    "version": "1.5.8",
+    "version": "1.5.9",
     "description": "eggjs qeelyn framework",
     "main": "index.js",
     "scripts": {
