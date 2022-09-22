@@ -100,8 +100,8 @@ class QeelynAuthClientService extends Service {
         const { app, ctx } = this;
         return await ctx.service.apiHttpClient.httpApi(app.config.api.ucenterAuth + '/access/can', {
             permission: router,
-            orgId: ctx.headers['org-id'] ? ctx.headers['org-id'] : ctx.session.orgId,
-            loginOrgId: ctx.headers['login-org-id'] ? ctx.headers['login-org-id'] : ctx.session.loginOrgId,
+            orgId: ctx.session.orgId,
+            loginOrgId: ctx.session.loginOrgId,
             appCode: ctx.app.config.appCode
         }, 'POST');
     }

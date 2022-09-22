@@ -15,6 +15,13 @@ module.exports = () => {
             }
         }
 
+        if (ctx.headers['org-id']) {
+            ctx.session.orgId = ctx.headers['org-id']
+        }
+        if (ctx.headers['login-org-id']) {
+            ctx.session.loginOrgId = ctx.headers['login-org-id']
+        }
+
         try {
             // JWT验证
             const pemPath = ctx.app.config.publicKeyPath;
