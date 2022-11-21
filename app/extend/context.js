@@ -31,6 +31,7 @@ module.exports = {
         //     return this.header['x-request-id'];
         // } else {
         // }
-        return Math.floor(Date.now() + '' + Math.floor(Math.random() * 1000000)).toString(16);
+        // 由于js Number 最大长度问题 只能处理16位数字因此调整了算法保证不会重复
+        return Number(Date.now() * 1000 + Math.floor(Math.random() * 1000)).toString(16);
     }
 };
