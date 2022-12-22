@@ -32,6 +32,7 @@ module.exports = {
         // } else {
         // }
         // 由于js Number 最大长度问题 只能处理16位数字因此调整了算法保证不会重复
-        return Number(Date.now() * 1000 + Math.floor(Math.random() * 1000)).toString(16);
+        const value = Number(Date.now() * 1000 + Math.floor(Math.random() * 1000)).toString(16);
+        return `0${Array(16 - value.length).join('0')}${value}`;
     }
 };
